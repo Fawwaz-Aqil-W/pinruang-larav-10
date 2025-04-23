@@ -1,0 +1,300 @@
+/* Reset dan Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex:1;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 20px;
+  background-color: #002a45;
+  color: white;
+}
+
+.custom-header {
+  background-color: #002a45; /* Warna biru */
+  color: white;
+}
+
+
+.header .logo {
+  width: 80px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.header .title {
+  font-size: 24px;
+}
+
+/* Login Container */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.login-form-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-logo {
+  margin-bottom: 20px;
+  width: 120px;
+}
+
+.input-box {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.input-box:focus {
+  border-color: #002a45;
+}
+
+.signin-btn {
+  padding: 0.375rem 0.75rem; /* padding Bootstrap */
+  font-size: 1rem;           /* 16px, standar Bootstrap */
+  line-height: 1.5;
+  border-radius: 0.375rem;   /* sesuai Bootstrap */
+  background-color: #3ab2c2; /* warna biru kamu */
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: auto; /* agar tidak full */
+  display: inline-block;
+}
+
+.signin-btn:hover {
+  background-color: #127d8c; /* sedikit lebih gelap saat hover */
+}
+
+.extra-links {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.extra-links a {
+  color: #3ab2c2;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+}
+
+/* Home Container */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.home-content {
+  padding: 20px;
+}
+
+.home-content h1 {
+  font-size: 28px;
+  color: #333;
+}
+
+.home-content p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.btn-main {
+  padding: 10px 20px;
+  background-color: #3ab2c2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-main:hover {
+  background-color: #127d8c;
+}
+
+/* Footer */
+.footer {
+  background-color: #000;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.footer {
+  margin-top: auto;
+  background-color: #000;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-left {
+  max-width: 50%;
+}
+
+.footer-logo {
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+.footer-right {
+  max-width: 50%;
+}
+
+.footer-right h3 {
+  margin-bottom: 10px;
+}
+
+.footer-bottom {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.footer-bottom a {
+  color: white;
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.hero-slideshow {
+  position: relative;
+  min-height: 800px; /* Tinggi yang lebih besar untuk lebih menonjol */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out; /* Transisi smooth saat gambar berubah */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 56px; /* tinggi default navbar */
+  color: white;
+}
+
+
+/* Media Query untuk layar tablet dan lebih kecil */
+@media (max-width: 768px) {
+  .hero-slideshow {
+    min-height: 400px; /* Lebih pendek di layar lebih kecil */
+  }
+}
+
+/* Media Query untuk layar ponsel */
+@media (max-width: 576px) {
+  .hero-slideshow {
+    min-height: 300px; /* Lebih pendek lagi di ponsel */
+  }
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1020; /* Pastikan navbar berada di atas elemen lain */
+  background-color: white; /* Warna latar navbar */
+  font-family: Arial, sans-serif; /* Pastikan font konsisten */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
+}
+
+/* Gaya default untuk semua link navbar */
+.navbar .nav-link {
+  color: #555; /* Warna teks link */
+  padding: 10px 15px; /* Spasi dalam link */
+  text-decoration: none; /* Hilangkan underline */
+  transition: background-color 0.3s, color 0.3s; /* Animasi saat hover */
+}
+
+/* Gaya untuk link yang aktif */
+.navbar .nav-link.active {
+  background-color: #00bcd4; /* Warna latar belakang aktif */
+  color: white; /* Warna teks aktif */
+  border-radius: 5px; /* Tambahkan sedikit rounding */
+}
+
+/* Gaya saat hover */
+.navbar .nav-link:hover {
+  background-color: #f0f0f0; /* Warna latar saat hover */
+  color: #000; /* Warna teks saat hover */
+}
+
+/* Dropdown styling */
+.navbar .dropdown-menu {
+  border-radius: 5px; /* Rounding pada dropdown */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15); /* Bayangan dropdown */
+}
+
+/* Dropdown item hover */
+.navbar .dropdown-item:hover {
+  background-color: #00bcd4; /* Warna hover dropdown */
+  color: white; /* Warna teks dropdown saat hover */
+}
+
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+}
+
+.btn {
+  border-radius: 5px;
+}
+
+
+
