@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pinjem;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PinjemController extends Controller
 {
@@ -24,6 +25,25 @@ class PinjemController extends Controller
             'alasan' => 'required|string'
         ]);
 
+        // Check if room is already approved for the requested time
+        $approvedBooking = Pinjem::where('id_ruangan', $validated['id_ruangan'])
+            ->where('status', 'disetujui')
+            ->where(function($query) use ($validated) {
+                $query->whereBetween('mulai', [$validated['mulai'], $validated['selesai']])
+                    ->orWhereBetween('selesai', [$validated['mulai'], $validated['selesai']])
+                    ->orWhere(function($q) use ($validated) {
+                        $q->where('mulai', '<=', $validated['mulai'])
+                          ->where('selesai', '>=', $validated['selesai']);
+                    });
+            })->exists();
+
+        if ($approvedBooking) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Ruangan sudah dibooking dan disetujui untuk waktu tersebut'
+            ], 422);
+        }
+
         $peminjaman = Pinjem::create([
             'user_id' => auth()->id(),
             'id_ruangan' => $validated['id_ruangan'],
@@ -35,6 +55,7 @@ class PinjemController extends Controller
         ]);
 
         return response()->json([
+            'status' => 'success',
             'message' => 'Peminjaman berhasil diajukan',
             'peminjaman' => $peminjaman
         ]);
@@ -64,5 +85,30 @@ class PinjemController extends Controller
 
         $pinjem->delete();
         return back()->with('success', 'Peminjaman berhasil dihapus');
+    }
+
+    public function getRoomSchedule($roomId)
+    {
+        $bookings = Pinjem::where('id_ruangan', $roomId)
+            ->whereIn('status', ['pending', 'disetujui', 'ditolak'])
+            ->get()
+            ->map(function($booking) {
+                $color = match($booking->status) {
+                    'pending' => '#D2B48C', // brown
+                    'disetujui' => '#0000FF', // blue
+                    'ditolak' => '#FF0000', // red
+                    default => '#FFFFFF' // white
+                };
+
+                return [
+                    'title' => $booking->user->name . ' - ' . $booking->jurusan,
+                    'start' => $booking->mulai,
+                    'end' => $booking->selesai,
+                    'color' => $color,
+                    'status' => $booking->status
+                ];
+            });
+
+        return response()->json($bookings);
     }
 }

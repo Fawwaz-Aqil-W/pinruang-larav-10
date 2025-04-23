@@ -56,4 +56,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pinjem', [PinjemController::class, 'store'])->name('pinjem.store');
     Route::get('/pinjem/status-pinjem', [PinjemController::class, 'status'])->name('pinjem.status');
     Route::delete('/pinjem/{id}', [PinjemController::class, 'destroy'])->name('pinjem.destroy');
+    Route::get('/pinjem/schedule/{roomId}', [PinjemController::class, 'getRoomSchedule'])->name('pinjem.schedule');
 });

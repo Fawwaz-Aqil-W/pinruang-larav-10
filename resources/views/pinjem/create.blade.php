@@ -2,23 +2,45 @@
 
 @section('title', 'Pengajuan Peminjaman')
 
+@section('styles')
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+<style>
+    .fc-event {
+        cursor: pointer;
+    }
+</style>
+@endsection
+
 @section('content')
-<div class="profile-section py-5">
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="card shadow-sm">
-                <div class="card-header custom-header">
-                    <h5 class="mb-1">Form Peminjaman</h5>
+                <div class="card-header">
+                    <h5 class="mb-0">Form Peminjaman Ruangan</h5>
                 </div>
                 <div class="card-body">
-                    <form id="form-peminjaman" action="{{ route('pinjem.store') }}" method="POST">
+                    <form id="form-peminjaman" method="POST" action="{{ route('pinjem.store') }}">
                         @csrf
-                        <input type="hidden" name="id_ruangan" value="R001">
+                        <div class="mb-3">
+                            <label for="ruangan" class="form-label">Pilih Ruangan</label>
+                            <select class="form-select @error('id_ruangan') is-invalid @enderror" 
+                                    id="ruangan" name="id_ruangan" required>
+                                <option value="">-- Pilih Ruangan --</option>
+                                @foreach($ruangan as $r)
+                                    <option value="{{ $r->id }}">{{ $r->nama }} - {{ $r->gedung }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_ruangan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="mb-3">
                             <label for="jurusan" class="form-label">Jurusan</label>
-                            <select id="jurusan" name="jurusan" class="form-select @error('jurusan') is-invalid @enderror" required>
-                                <option value="" disabled selected>-- Pilih Jurusan --</option>
+                            <select class="form-select @error('jurusan') is-invalid @enderror" 
+                                    id="jurusan" name="jurusan" required>
+                                <option value="">-- Pilih Jurusan --</option>
                                 <option value="Informatika">Informatika</option>
                                 <option value="Mesin">Mesin</option>
                                 <option value="Elektro">Elektro</option>
@@ -30,20 +52,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="ruangan" class="form-label">Ruangan</label>
-                            <select id="ruangan" name="id_ruangan" class="form-select @error('id_ruangan') is-invalid @enderror" required>
-                                <option value="" disabled selected>-- Pilih Ruangan --</option>
-                                @foreach($ruangan as $r)
-                                    <option value="{{ $r->id }}">{{ $r->nama }} - {{ $r->gedung }}</option>
-                                @endforeach
-                            </select>
-                            @error('id_ruangan')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="mulai" class="form-label">Mulai Pinjam</label>
+                            <label for="mulai" class="form-label">Waktu Mulai</label>
                             <input type="datetime-local" class="form-control @error('mulai') is-invalid @enderror" 
                                    id="mulai" name="mulai" required>
                             @error('mulai')
@@ -52,7 +61,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="selesai" class="form-label">Selesai Pinjam</label>
+                            <label for="selesai" class="form-label">Waktu Selesai</label>
                             <input type="datetime-local" class="form-control @error('selesai') is-invalid @enderror" 
                                    id="selesai" name="selesai" required>
                             @error('selesai')
@@ -61,7 +70,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="alasan" class="form-label">Tujuan</label>
+                            <label for="alasan" class="form-label">Alasan Peminjaman</label>
                             <input type="text" class="form-control @error('alasan') is-invalid @enderror" 
                                    id="alasan" name="alasan" required>
                             @error('alasan')
@@ -69,12 +78,23 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-main">Ajukan Peminjaman</button>
+                        <button type="submit" class="btn btn-primary">Ajukan Peminjaman</button>
                     </form>
 
-                    <div id="alert-message" class="alert alert-success mt-4 d-none">
-                        <strong>Pengajuan Berhasil!</strong> Peminjaman Anda telah berhasil diajukan.
-                    </div>
+                    <div id="alert-message" class="alert mt-3 d-none"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h5 class="mb-0">Jadwal Ruangan</h5>
+                </div>
+                <div class="card-body">
+                    <div id="calendar"></div>
                 </div>
             </div>
         </div>
@@ -83,25 +103,78 @@
 @endsection
 
 @section('scripts')
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('form-peminjaman');
     const alertBox = document.getElementById('alert-message');
+    const ruanganSelect = document.getElementById('ruangan');
+    let calendar;
 
+    // Initialize Calendar
+    const calendarEl = document.getElementById('calendar');
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        slotMinTime: '07:00:00',
+        slotMaxTime: '18:00:00',
+        allDaySlot: false,
+        weekends: false,
+        slotDuration: '01:00:00',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridWeek,timeGridDay'
+        }
+    });
+    calendar.render();
+
+    // Load room schedule when room is selected
+    ruanganSelect.addEventListener('change', function() {
+        const roomId = this.value;
+        if (roomId) {
+            fetch(`/pinjem/schedule/${roomId}`)
+                .then(response => response.json())
+                .then(events => {
+                    calendar.removeAllEvents();
+                    calendar.addEventSource(events);
+                });
+        }
+    });
+
+    // Handle form submission
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
+        const formData = new FormData(form);
+        
         fetch(form.action, {
             method: 'POST',
-            body: new FormData(form),
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            }
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams(formData)
         })
         .then(response => response.json())
         .then(data => {
             alertBox.classList.remove('d-none');
-            form.reset();
+            
+            if (data.status === 'success') {
+                alertBox.classList.remove('alert-danger');
+                alertBox.classList.add('alert-success');
+                alertBox.textContent = data.message;
+                form.reset();
+                
+                // Refresh calendar
+                if (ruanganSelect.value) {
+                    ruanganSelect.dispatchEvent(new Event('change'));
+                }
+            } else {
+                alertBox.classList.remove('alert-success');
+                alertBox.classList.add('alert-danger');
+                alertBox.textContent = data.message || 'Terjadi kesalahan saat memproses peminjaman';
+            }
             
             setTimeout(() => {
                 alertBox.classList.add('d-none');
@@ -109,6 +182,9 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error:', error);
+            alertBox.classList.remove('d-none', 'alert-success');
+            alertBox.classList.add('alert-danger');
+            alertBox.textContent = 'Terjadi kesalahan saat menghubungi server';
         });
     });
 });
