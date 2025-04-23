@@ -16,7 +16,7 @@
     <div class="container">
         <div style="background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 20px;">
             <div class="date-checker bg-light p-4 rounded shadow-sm">
-                <form action="{{ route('rooms.check') }}" method="GET" class="row g-3">
+                <form action="{{ route('ruangan.check') }}" method="GET" class="row g-3">
                     <div class="col-md-4">
                         <label for="start-date" class="form-label">Tanggal Awal</label>
                         <input type="date" id="start-date" name="start_date" class="form-control" required />

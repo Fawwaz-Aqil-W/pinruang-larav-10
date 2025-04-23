@@ -34,8 +34,8 @@
                            href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('rooms.*') ? 'active' : '' }}" 
-                           href="{{ route('rooms.index') }}">Ruangan</a>
+                        <a class="nav-link {{ request()->routeIs('ruangan.*') ? 'active' : '' }}" 
+                           href="{{ route('ruangan.index') }}">Ruangan</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="peminjamanDropdown" 

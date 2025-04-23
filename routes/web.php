@@ -2,14 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PinjemController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\RuanganController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\RuanganController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,20 +41,19 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    // Basic routes
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     
-    // Rooms routes
-    Route::get('/rooms', [RoomController::class, 'index'])->name('rooms.index');
-    Route::get('/rooms/check', [RoomController::class, 'check'])->name('rooms.check');
+    // Ruangan routes
+    Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
+    Route::get('/ruangan/check', [RuanganController::class, 'check'])->name('ruangan.check');
+    Route::get('/ruangan/{kode_ruangan}', [RuanganController::class, 'show'])->name('ruangan.show');
     
     // Peminjaman routes
     Route::get('/pinjem/buat-pinjem', [PinjemController::class, 'create'])->name('pinjem.create');
     Route::post('/pinjem', [PinjemController::class, 'store'])->name('pinjem.store');
     Route::get('/pinjem/status-pinjem', [PinjemController::class, 'status'])->name('pinjem.status');
-    
-    // Ruangan routes
-    Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
-    Route::get('/ruangan/{kode_ruangan}', [RuanganController::class, 'show'])->name('ruangan.show');
+    Route::delete('/pinjem/{id}', [PinjemController::class, 'destroy'])->name('pinjem.destroy');
 });

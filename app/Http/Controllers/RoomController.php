@@ -9,7 +9,7 @@ class RoomController extends Controller
 {
     public function index()
     {
-        $room = Room::all();
+        $ruangan = Room::all();
         return view('rooms.index', compact('rooms'));
     }
 
