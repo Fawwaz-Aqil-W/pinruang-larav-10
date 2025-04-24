@@ -20,6 +20,7 @@
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
                                 <th>Status</th>
+                                <th>Alasan di Tolak</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -39,6 +40,9 @@
                                     @else
                                         <span class="badge bg-danger">Ditolak</span>
                                     @endif
+                                </td>
+                                <td>
+                                    {{ $pinjem->alasan_ditolak ?? '-' }}
                                 </td>
                                 <td>
                                     @if($pinjem->status == 'pending')

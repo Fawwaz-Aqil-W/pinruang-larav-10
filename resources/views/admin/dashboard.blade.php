@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
         weekends: true,
         slotMinTime: '00:00:00',
         slotMaxTime: '24:00:00',
-        height: 500, // atur tinggi kalender agar tidak terlalu besar
+        height: 450, // atur tinggi kalender agar tidak terlalu besar
         length: 7, // jumlah hari dalam tampilan mingguan
         scrollTime: '07:00:00', // posisi scroll awal
         allDaySlot: true,

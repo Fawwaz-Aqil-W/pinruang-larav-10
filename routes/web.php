@@ -54,8 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
     Route::get('/ruangan/check', [RuanganController::class, 'check'])->name('ruangan.check');
     Route::get('/ruangan/{kode_ruangan}', [RuanganController::class, 'show'])->name('ruangan.show');
-    Route::get('/ruangan/schedule/{roomId}', [RuanganController::class, 'getRoomSchedule'])->name('ruangan.schedule');
-    
+    Route::get('/ruangan/schedule/{roomId}', [RuanganController::class, 'getRoomSchedule'])->name('ruangan.schedule');    
     // Peminjaman routes
     Route::get('/pinjem/buat-pinjem', [PinjemController::class, 'create'])->name('pinjem.create');
     Route::post('/pinjem', [PinjemController::class, 'store'])->name('pinjem.store');
