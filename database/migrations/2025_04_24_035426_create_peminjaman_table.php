@@ -10,12 +10,12 @@ return new class extends Migration
     {
         Schema::create('peminjaman', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('id_ruangan')->constrained('ruangan');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('id_ruangan')->constrained('ruangan')->onDelete('cascade');
             $table->string('jurusan');
             $table->dateTime('mulai');
             $table->dateTime('selesai');
-            $table->string('alasan');
+            $table->text('alasan');
             $table->enum('status', ['pending', 'disetujui', 'ditolak'])->default('pending');
             $table->timestamps();
         });

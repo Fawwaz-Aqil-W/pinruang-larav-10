@@ -296,5 +296,248 @@ a:hover {
   border-radius: 5px;
 }
 
+/* Calendar Styles */
+.fc {
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1.5em;
+}
+
+.fc-toolbar-title {
+    font-size: 1.5em !important;
+    font-weight: 500;
+}
+
+.fc-button-primary {
+    background-color: #3ab2c2 !important;
+    border-color: #3ab2c2 !important;
+}
+    #calendar {
+        max-width: 800px;
+        margin: 0 auto;
+        font-size: 0.95rem;
+    }
+    .fc {
+        font-size: 0.95rem;
+    }
+.fc-button-primary:hover {
+    background-color: #127d8c !important;
+    border-color: #127d8c !important;
+}
+
+.fc-timegrid-slot {
+    height: 3em !important;
+}
+
+.fc-timegrid-event {
+    border-radius: 3px;
+    padding: 2px;
+}
+
+.fc-event[data-status="pending"] {
+    background-color: #D2B48C !important;
+    border-color: #D2B48C !important;
+    color: black !important;
+}
+
+.fc-event[data-status="disetujui"] {
+    background-color: #0000FF !important;
+    border-color: #0000FF !important;
+    color: white !important;
+}
+
+.fc-event[data-status="ditolak"] {
+    background-color: #FF0000 !important;
+    border-color: #FF0000 !important;
+    color: white !important;
+}
+
+.fc-event-title {
+    font-weight: bold;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.fc-event-time {
+    font-size: 0.85em;
+    opacity: 0.7;
+}
+
+.fc-day-today {
+    background-color: rgba(58, 178, 194, 0.05) !important;
+}
+
+.fc-timegrid-col-frame {
+    background: white;
+}
+
+/* Register & Login Form Styles */
+.register-section, .login-section {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+    margin: 0 auto;  /* Center the card */
+    width: 100%;
+}
+
+.card.p-4 {
+    padding: 2.5rem !important;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+    display: block;  /* Ensure labels are block elements */
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    width: 100%;     /* Ensure full width */
+    display: block;  /* Ensure inputs are block elements */
+}
+
+/* Center text alignment for specific elements */
+.text-center {
+    text-align: center !important;
+}
+
+/* Adjust container padding for mobile */
+@media (max-width: 768px) {
+    .register-section .container,
+    .login-section .container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+/* Center card on smaller screens */
+@media (max-width: 576px) {
+    .col-md-6 {
+        padding: 0 15px;
+    }
+    
+    .card.p-4 {
+        padding: 1.5rem !important;
+    }
+}
+
+.header {
+    background-color: #002a45;
+    padding: 2rem 0;
+    margin-bottom: 0;
+}
+
+.header .lead {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Link Styles */
+a {
+    color: #3ab2c2;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #127d8c;
+    text-decoration: underline;
+}
+
+/* Shadow Utilities */
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+/* Admin Dashboard Styles */
+.sidebar {
+    min-height: calc(100vh - 180px);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar .nav-link {
+    color: #333;
+    padding: .75rem 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link:hover {
+    color: #0056b3;
+    background-color: #e9ecef;
+}
+
+.sidebar .nav-link.active {
+    color: #fff;
+    background-color: #3ab2c2;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Dashboard Cards */
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.table-responsive {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Custom badge colors */
+.badge.bg-pending {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.badge.bg-approved {
+    background-color: #28a745;
+}
+
+.badge.bg-rejected {
+    background-color: #dc3545;
+}
+
+/* Calendar container */
+#calendar {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+#calendar {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 0.95rem;
+}
+.fc {
+  font-size: 0.95rem;
+}
 
 

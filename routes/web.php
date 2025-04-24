@@ -9,6 +9,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminRuanganController;
+use App\Http\Controllers\Admin\AdminPeminjamanController;
+use App\Http\Controllers\Admin\AdminLaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
     Route::get('/ruangan/check', [RuanganController::class, 'check'])->name('ruangan.check');
     Route::get('/ruangan/{kode_ruangan}', [RuanganController::class, 'show'])->name('ruangan.show');
+    Route::get('/ruangan/schedule/{roomId}', [RuanganController::class, 'getRoomSchedule'])->name('ruangan.schedule');
     
     // Peminjaman routes
     Route::get('/pinjem/buat-pinjem', [PinjemController::class, 'create'])->name('pinjem.create');
@@ -58,3 +63,19 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/pinjem/{id}', [PinjemController::class, 'destroy'])->name('pinjem.destroy');
     Route::get('/pinjem/schedule/{roomId}', [PinjemController::class, 'getRoomSchedule'])->name('pinjem.schedule');
 });
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('ruangan', AdminRuanganController::class);
+    Route::resource('peminjaman', AdminPeminjamanController::class);
+    Route::get('laporan', [AdminLaporanController::class, 'index'])->name('laporan.index');
+    Route::post('laporan/export', [AdminLaporanController::class, 'export'])->name('laporan.export');
+    Route::get('/peminjaman', [AdminPeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::post('/peminjaman/{id}/approve', [AdminPeminjamanController::class, 'approve'])->name('peminjaman.approve');
+    Route::post('/peminjaman/{id}/reject', [AdminPeminjamanController::class, 'reject'])->name('peminjaman.reject');
+    Route::get('/laporan', [AdminLaporanController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/export-excel', [AdminLaporanController::class, 'exportExcel'])->name('laporan.excel');
+    Route::get('/laporan/export-pdf', [AdminLaporanController::class, 'exportPDF'])->name('laporan.pdf');
+    Route::post('/peminjaman/{id}/cancel', [AdminPeminjamanController::class, 'cancel'])->name('peminjaman.cancel');
+});
+

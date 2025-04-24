@@ -6,7 +6,7 @@
 <!--Hero Section-->
 <section class="hero-slideshow text-white text-center py-5">
     <div class="container">
-        <h2 class="mb-3">Selamat Datang di Si Pinjam</h2>
+        <h2 class="mb-3 ">Selamat Datang di Si Pinjam</h2>
         <p class="lead">Layanan terpadu untuk mempermudah proses peminjaman fasilitas kampus FT secara efisien.</p>
     </div>
 </section>

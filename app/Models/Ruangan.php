@@ -9,10 +9,10 @@ class Ruangan extends Model
     protected $table = 'ruangan'; // Specify table name
 
     protected $fillable = [
-        'kode_ruangan',
         'nama',
         'gedung',
         'kapasitas',
+        'gambar',
         'gambar_url'
     ];
 
@@ -20,4 +20,18 @@ class Ruangan extends Model
     {
         return $this->hasMany(Pinjem::class, 'id_ruangan');
     }
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->gambar) {
+            return asset('storage/' . $this->gambar);
+        }
+        
+        if ($this->gambar_url) {
+            return $this->gambar_url;
+        }
+
+        return 'https://via.placeholder.com/300x200';
+    }
 }
+

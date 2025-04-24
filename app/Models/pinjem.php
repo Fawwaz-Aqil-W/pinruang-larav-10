@@ -18,7 +18,12 @@ class Pinjem extends Model
         'mulai',
         'selesai',
         'alasan',
-        'status'
+        'status',
+        'disetujui_pada',
+        'disetujui_oleh',
+        'ditolak_pada',
+        'ditolak_oleh',
+        'alasan_ditolak'
     ];
 
     public function user()
@@ -29,5 +34,15 @@ class Pinjem extends Model
     public function ruangan()
     {
         return $this->belongsTo(Ruangan::class, 'id_ruangan');
+    }
+
+    public function getStatusColorAttribute()
+    {
+        return match($this->status) {
+            'pending' => 'warning',
+            'disetujui' => 'success',
+            'ditolak' => 'danger',
+            default => 'secondary'
+        };
     }
 }

@@ -1,0 +1,141 @@
+@extends('layouts.admin')
+
+@section('title', 'Kelola Ruangan')
+
+@section('content')
+<section id="kelola-ruangan">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Daftar Ruangan</h3>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ruanganModal">
+            <i class="fas fa-plus"></i> Tambah Ruangan
+        </button>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nama Ruangan</th>
+                            <th>Gedung</th>
+                            <th>Kapasitas</th>
+                            <th>Gambar</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($ruangan as $room)
+                        <tr>
+                            <td>{{ $room->nama }}</td>
+                            <td>{{ $room->gedung }}</td>
+                            <td>{{ $room->kapasitas }}</td>
+                            <td>
+                                <img src="{{ asset('storage/'.$room->gambar) }}" 
+                                     alt="Gambar {{ $room->nama }}" 
+                                     width="100" 
+                                     class="img-thumbnail">
+                            </td>
+                            <td>
+                                <button class="btn btn-warning btn-sm edit-room" 
+                                        data-id="{{ $room->id }}">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <form action="{{ route('admin.ruangan.destroy', $room->id) }}" 
+                                      method="POST" 
+                                      class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" 
+                                            class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Yakin ingin menghapus?')">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal Tambah/Edit Ruangan -->
+@include('admin.ruangan.modal')
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = new bootstrap.Modal(document.getElementById('ruanganModal'));
+    const form = document.getElementById('formRuangan');
+    
+    // Add new room
+    document.querySelector('[data-bs-target="#ruanganModal"]').addEventListener('click', function() {
+        form.reset();
+        form.action = "{{ route('admin.ruangan.store') }}";
+        form.querySelector('input[name="_method"]').value = 'POST';
+        document.querySelector('.modal-title').textContent = 'Tambah Ruangan';
+        document.getElementById('current_image').style.display = 'none';
+    });
+
+    // Edit room
+    document.querySelectorAll('.edit-room').forEach(button => {
+        button.addEventListener('click', async function() {
+            const id = this.dataset.id;
+            try {
+                const response = await fetch(`/admin/ruangan/${id}/edit`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                
+                form.reset();
+                form.action = `/admin/ruangan/${id}`;
+                form.querySelector('input[name="_method"]').value = 'PUT';
+                document.querySelector('.modal-title').textContent = 'Edit Ruangan';
+                
+                // Fill form data
+                document.getElementById('nama').value = data.nama;
+                document.getElementById('gedung').value = data.gedung;
+                document.getElementById('kapasitas').value = data.kapasitas;
+                
+                // Show modal
+                modal.show();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Gagal mengambil data ruangan');
+            }
+        });
+    });
+
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        
+        try {
+            const response = await fetch(this.action, {
+                method: this.method,
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                alert(result.message || 'Terjadi kesalahan saat menyimpan data');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat menyimpan data');
+        }
+    });
+});
+</script>
+@endsection
