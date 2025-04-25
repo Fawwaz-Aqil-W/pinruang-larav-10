@@ -116,6 +116,40 @@ document.addEventListener('DOMContentLoaded', function () {
         scrollTime: '07:00:00', // posisi scroll awal
         allDaySlot: true,
         slotDuration: '01:00:00',
+        eventContent: function(arg) {
+            // Format waktu mulai-selesai
+            let start = arg.event.start;
+            let end = arg.event.end;
+            let timeRange = '';
+            if (start && end) {
+                let pad = n => n.toString().padStart(2, '0');
+                timeRange = `${pad(start.getHours())}.${pad(start.getMinutes())} - ${pad(end.getHours())}.${pad(end.getMinutes())}`;
+            }
+            let title = arg.event.title;
+            let nama = arg.event.extendedProps.nama_peminjam;
+            let alasan = arg.event.extendedProps.alasan;
+            return {
+                html: `
+                    <div style="font-size:0.95em">
+                        <strong>${timeRange}</strong><br>
+                        ${title}<br>
+                        <span style="font-size:0.9em">${nama} - ${alasan}</span>
+                    </div>
+                `
+            };
+        },
+        eventClick: function(info) {
+            let event = info.event;
+            let detail = `
+                ${event.title}
+                NIM: ${event.extendedProps.nim}
+                Waktu: ${event.start.toLocaleString()} - ${event.end ? event.end.toLocaleString() : ''}
+                Nama: ${event.extendedProps.nama_peminjam}
+                Alasan: ${event.extendedProps.alasan}
+                Status: ${event.extendedProps.status}
+            `;
+            alert(detail);
+        },
     });
     calendar.render();
 

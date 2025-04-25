@@ -15,7 +15,7 @@
                 <ul class="list-group mb-4">
                     <li class="list-group-item"><strong>Nama:</strong> {{ Auth::user()->name }}</li>
                     <li class="list-group-item"><strong>NIM:</strong> {{ Auth::user()->nim }}</li>
-                    <li class="list-group-item"><strong>Jurusan:</strong> Teknik Informatika</li>
+                    <li class="list-group-item"><strong>Jurusan:</strong> {{ auth()->user()->jurusan }}</li>
                     <li class="list-group-item"><strong>Angkatan:</strong> 2023</li>
                 </ul>
 

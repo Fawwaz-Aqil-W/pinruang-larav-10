@@ -36,19 +36,11 @@
                             @enderror
                         </div>
 
+                        {{-- Tampilkan jurusan user --}}
                         <div class="mb-3">
-                            <label for="jurusan" class="form-label">Jurusan</label>
-                            <select class="form-select @error('jurusan') is-invalid @enderror" 
-                                    id="jurusan" name="jurusan" required>
-                                <option value="">-- Pilih Jurusan --</option>
-                                <option value="Informatika">Informatika</option>
-                                <option value="Mesin">Mesin</option>
-                                <option value="Elektro">Elektro</option>
-                                <option value="Industri">Industri</option>
-                            </select>
-                            @error('jurusan')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <label class="form-label">Jurusan</label>
+                            <input type="text" class="form-control" value="{{ auth()->user()->jurusan }}" disabled>
+                            <input type="hidden" name="jurusan" value="{{ auth()->user()->jurusan }}">
                         </div>
 
                         <div class="mb-3">
@@ -103,7 +95,8 @@
 @endsection
 
 @section('scripts')
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('form-peminjaman');

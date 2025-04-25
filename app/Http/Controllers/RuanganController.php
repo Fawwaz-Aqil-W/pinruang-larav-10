@@ -35,7 +35,7 @@ class RuanganController extends Controller
             ->map(function($booking) {
                 $color = match($booking->status) {
                     'pending' => '#D2B48C',
-                    'disetujui' => '#0000FF',
+                    'disetujui' =>'rgb(46, 175, 184)',
                     'ditolak' => '#FF0000',
                     default => '#FFFFFF'
                 };

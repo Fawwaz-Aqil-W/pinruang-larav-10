@@ -45,6 +45,20 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="jurusan" class="form-label">Jurusan</label>
+                            <select class="form-select @error('jurusan') is-invalid @enderror" id="jurusan" name="jurusan" required>
+                                <option value="">-- Pilih Jurusan --</option>
+                                <option value="Informatika">Informatika</option>
+                                <option value="Mesin">Mesin</option>
+                                <option value="Elektro">Elektro</option>
+                                <option value="Industri">Industri</option>
+                            </select>
+                            @error('jurusan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" required />
                             @error('password')

@@ -20,14 +20,18 @@ class AdminDashboardController extends Controller
                                       ->latest()
                                       ->take(10)
                                       ->get(),
-            'calendar_events' => Pinjem::with(['ruangan'])
+            'calendar_events' => Pinjem::with(['ruangan', 'user'])
                                      ->get()
                                      ->map(function($pinjam) {
                                          return [
-                                             'title' => "Peminjaman {$pinjam->ruangan->nama}",
+                                             'title' => "Peminjaman {$pinjam->ruangan->nama} - {$pinjam->jurusan}",
                                              'start' => $pinjam->mulai,
                                              'end' => $pinjam->selesai,
-                                             'color' => $this->getStatusColor($pinjam->status)
+                                             'color' => $this->getStatusColor($pinjam->status),
+                                             'nim' => $pinjam->user->nim ?? '-',
+                                             'nama_peminjam' => $pinjam->user->name ?? '-',
+                                             'alasan' => $pinjam->alasan ?? '-',
+                                             'status' => $pinjam->status,
                                          ];
                                      })
         ];
