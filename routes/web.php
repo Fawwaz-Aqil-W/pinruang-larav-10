@@ -56,11 +56,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/ruangan/check', [RuanganController::class, 'check'])->name('ruangan.check');
     Route::get('/ruangan/{kode_ruangan}', [RuanganController::class, 'show'])->name('ruangan.show');
     Route::get('/ruangan/schedule/{roomId}', [RuanganController::class, 'getRoomSchedule'])->name('ruangan.schedule');    
+    Route::get('/ruangan/schedule-gedung/{gedung}', [RuanganController::class, 'getGedungSchedule']);
     // Peminjaman routes
     Route::get('/pinjem/buat-pinjem', [PinjemController::class, 'create'])->name('pinjem.create');
     Route::post('/pinjem', [PinjemController::class, 'store'])->name('pinjem.store');
     Route::get('/pinjem/status-pinjem', [PinjemController::class, 'status'])->name('pinjem.status');
     Route::delete('/pinjem/{id}', [PinjemController::class, 'destroy'])->name('pinjem.destroy');
+    Route::put('/pinjem/{id}', [PinjamController::class, 'update'])->name('pinjem.update');
     Route::get('/pinjem/schedule/{roomId}', [PinjemController::class, 'getRoomSchedule'])->name('pinjem.schedule');
     Route::delete('/notifikasi/{id}', [ProfileController::class, 'destroy'])->name('notifikasi.destroy');
 });

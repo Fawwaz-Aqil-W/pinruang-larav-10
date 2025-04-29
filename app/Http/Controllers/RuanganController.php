@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Pinjem;
 
+
 class RuanganController extends Controller
 {
     public function index()
@@ -56,4 +57,37 @@ class RuanganController extends Controller
 
         return response()->json($events);
     }
+public function getGedungSchedule($gedung, Request $request)
+{
+    $start = $request->query('start');
+    $end = $request->query('end');
+    $userId = auth()->id();
+
+    $ruangan = \App\Models\Ruangan::where('gedung', $gedung)->pluck('id');
+
+    $events = \App\Models\Pinjem::whereIn('id_ruangan', $ruangan)
+        ->where(function($q) use ($start, $end) {
+            $q->whereBetween('mulai', [$start, $end])
+              ->orWhereBetween('selesai', [$start, $end]);
+        })
+        ->with(['ruangan', 'user'])
+        ->get()
+        // Filter: hanya tampilkan yang bukan ditolak, atau ditolak tapi milik user sendiri
+        ->filter(function($pinjam) use ($userId) {
+            return $pinjam->status != 'ditolak' || $pinjam->user_id == $userId;
+        })
+        ->map(function($pinjam) {
+            return [
+                'title' => $pinjam->ruangan->nama . ' - ' . ($pinjam->jurusan ?? ($pinjam->user->jurusan ?? '-')),
+                'start' => $pinjam->mulai,
+                'end' => $pinjam->selesai,
+                'status' => $pinjam->status,
+                'backgroundColor' => $pinjam->status == 'disetujui' ? '#198754' : ($pinjam->status == 'pending' ? '#ffc107' : '#dc3545'),
+                'borderColor' => '#fff',
+            ];
+        })
+        ->values();
+
+    return response()->json($events);
+}
 }
