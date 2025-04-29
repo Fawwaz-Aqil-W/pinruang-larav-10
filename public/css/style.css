@@ -79,11 +79,11 @@ html, body {
 }
 
 .signin-btn {
-  padding: 0.375rem 0.75rem; /* padding Bootstrap */
-  font-size: 1rem;           /* 16px, standar Bootstrap */
+  padding: 0.375rem 0.75rem; 
+  font-size: 1rem;           
   line-height: 1.5;
-  border-radius: 0.375rem;   /* sesuai Bootstrap */
-  background-color: #3ab2c2; /* warna biru kamu */
+  border-radius: 0.375rem;   
+  background-color: #3ab2c2; 
   color: white;
   border: none;
   cursor: pointer;
@@ -267,8 +267,8 @@ a.signin-btn {
 
 /* Gaya saat hover */
 .navbar .nav-link:hover {
-  background-color: #f0f0f0; /* Warna latar saat hover */
-  color: #ffecec; /* Warna teks saat hover */
+  background-color: #07a2b7; /* Warna latar saat hover */
+  color: #ecf7ff; /* Warna teks saat hover */
 }
 
 /* Dropdown styling */
@@ -489,8 +489,8 @@ a.signin-btn {
     border: 1px solid #ddd;
     padding: 0.75rem;
     font-size: 0.95rem;
-    width: 100%;     /* Ensure full width */
-    display: block;  /* Ensure inputs are block elements */
+    width: 100%;     
+    display: block;  
 }
 
 /* Center text alignment for specific elements */

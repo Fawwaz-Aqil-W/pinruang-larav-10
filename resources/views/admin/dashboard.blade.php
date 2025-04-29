@@ -6,7 +6,7 @@
 <h2 class="mb-4">Ringkasan</h2>
 <div class="row">
     <div class="col-md-4">
-        <div class="card text-white bg-primary mb-3">
+        <div class="card text-white mb-3" style="background: linear-gradient(to right, #00c6ff, #0072ff);">
             <div class="card-body">
                 <h5 class="card-title">Total Ruangan</h5>
                 <p class="card-text fs-3">{{ $total_ruangan }}</p>
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card text-white bg-success mb-3">
+        <div class="card text-white mb-3" style="background: linear-gradient(to right, #ff5858, #f857a6);">
             <div class="card-body">
                 <h5 class="card-title">Total User</h5>
                 <p class="card-text fs-3">{{ $total_user }}</p>
@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card text-white bg-warning mb-3">
+        <div class="card text-white mb-3" style="background: linear-gradient(to right, #56ab2f, #a8e063);">
             <div class="card-body">
                 <h5 class="card-title">Total Peminjaman</h5>
                 <p class="card-text fs-3">{{ $total_peminjaman }}</p>

@@ -19,33 +19,40 @@
         </div>
     </header>
 
+
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
             <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar py-4">
                 <div class="position-sticky">
+                    <!-- Logo dan Judul -->
+                    <div class="text-center mb-4">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height: 60px;">
+                        <h5 class="mt-2 mb-0" style="font-weight: bold;">Si Pinjam</h5>
+                    </div>
+
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}" 
-                               href="{{ route('admin.dashboard') }}">
+                            <a class="nav-link text-decoration-none {{ Request::is('admin/dashboard') ? 'active' : '' }}" 
+                            href="{{ route('admin.dashboard') }}">
                                 <i class="fas fa-home"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin/ruangan*') ? 'active' : '' }}" 
-                               href="{{ route('admin.ruangan.index') }}">
+                            <a class="nav-link text-decoration-none {{ Request::is('admin/ruangan*') ? 'active' : '' }}" 
+                            href="{{ route('admin.ruangan.index') }}">
                                 <i class="fas fa-door-open"></i> Kelola Ruangan
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin/peminjaman*') ? 'active' : '' }}" 
-                               href="{{ route('admin.peminjaman.index') }}">
+                            <a class="nav-link text-decoration-none {{ Request::is('admin/peminjaman*') ? 'active' : '' }}" 
+                            href="{{ route('admin.peminjaman.index') }}">
                                 <i class="fas fa-calendar-check"></i> Kelola Peminjaman
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Request::is('admin/laporan*') ? 'active' : '' }}" 
-                               href="{{ route('admin.laporan.index') }}">
+                            <a class="nav-link text-decoration-none {{ Request::is('admin/laporan*') ? 'active' : '' }}" 
+                            href="{{ route('admin.laporan.index') }}">
                                 <i class="fas fa-file-alt"></i> Lihat Laporan
                             </a>
                         </li>
@@ -60,7 +67,6 @@
                     </ul>
                 </div>
             </nav>
-
             <!-- Main Content -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 @yield('content')

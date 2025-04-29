@@ -17,7 +17,7 @@
     </div>
 
     <!-- Filter Laporan -->
-    <form class="row g-3 mb-4" id="formFilter" method="GET">
+    <form class="row align-items-end g-3 mb-4" id="formFilter" method="GET">
         <div class="col-md-3">
             <label for="filterStatus" class="form-label">Status</label>
             <select class="form-select" id="filterStatus" name="status">
@@ -43,11 +43,12 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-md-3 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">
-                Terapkan Filter
-            </button>
-        </div>
+        <div class="col-md-3">
+        <label class="form-label d-block invisible">Terapkan Filter</label>
+        <button type="submit" class="btn signin-btn w-100 text-white">
+            Terapkan Filter
+        </button>
+    </div>
     </form>
 
     <!-- Tabel Laporan -->
