@@ -49,7 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    
+    Route::post('/profile/update-foto', [ProfileController::class, 'updateFoto'])->name('profile.updateFoto');
+    Route::get('/helpdesk', function () {return view('helpdesk');})->name('helpdesk');
     // Ruangan routes
     Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
     Route::get('/ruangan/check', [RuanganController::class, 'check'])->name('ruangan.check');
@@ -61,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pinjem/status-pinjem', [PinjemController::class, 'status'])->name('pinjem.status');
     Route::delete('/pinjem/{id}', [PinjemController::class, 'destroy'])->name('pinjem.destroy');
     Route::get('/pinjem/schedule/{roomId}', [PinjemController::class, 'getRoomSchedule'])->name('pinjem.schedule');
+    Route::delete('/notifikasi/{id}', [ProfileController::class, 'destroy'])->name('notifikasi.destroy');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

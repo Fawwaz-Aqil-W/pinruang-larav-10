@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">Si Pinjam</a>
-
+        <a class="navbar-brand" href="{{ route('home') }}">
+            <img src="{{ asset('images/logo untirta.png') }}" alt="Logo" class="logo-navbar" style="height: 40px; margin-right: 10px;">
+            Si Pinjam</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,6 +28,11 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" 
                        href="{{ route('profile') }}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('helpdesk') ? 'active' : '' }}" href="{{ route('helpdesk') }}">
+                        Helpdesk
+                    </a>
                 </li>
             </ul>
         </div>

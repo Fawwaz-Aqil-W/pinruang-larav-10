@@ -90,11 +90,18 @@ html, body {
   transition: background-color 0.3s;
   width: auto; /* agar tidak full */
   display: inline-block;
+  text-decoration: none; 
+}
+
+a.signin-btn {
+  text-decoration: none !important;
+  border: none !important;
 }
 
 .signin-btn:hover {
-  background-color: #127d8c; /* sedikit lebih gelap saat hover */
-}
+  background-color: #208492; 
+   color: white
+  }
 
 .extra-links {
   margin-top: 10px;
@@ -109,6 +116,29 @@ html, body {
 
 .extra-links a:hover {
   text-decoration: underline;
+}
+
+/* logo */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 5px; 
+}
+
+.logo-navbar {
+  height: 40px;
+}
+
+.brand-text {
+  font-size: 20px; 
+  font-weight: bold; 
+  color: inherit; 
 }
 
 /* Home Container */
@@ -157,62 +187,17 @@ html, body {
   padding: 20px;
   text-align: center;
 }
-.footer {
-  margin-top: auto;
-  background-color: #000;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
 
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.footer-left {
-  max-width: 50%;
-}
-
-.footer-logo {
-  width: 80px;
-  margin-bottom: 10px;
-}
-
-.footer-right {
-  max-width: 50%;
-}
-
-.footer-right h3 {
-  margin-bottom: 10px;
-}
 
 .footer-bottom {
   margin-top: 10px;
   font-size: 14px;
 }
 
-.footer-bottom a {
-  color: white;
-  text-decoration: none;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-a:hover {
-  text-decoration: none;
-  color: inherit;
-}
 
 .hero-slideshow {
   position: relative;
+  padding-top: 0 !important;
   min-height: 800px; /* Tinggi yang lebih besar untuk lebih menonjol */
   background-size: cover;
   background-position: center;
@@ -283,7 +268,7 @@ a:hover {
 /* Gaya saat hover */
 .navbar .nav-link:hover {
   background-color: #f0f0f0; /* Warna latar saat hover */
-  color: #000; /* Warna teks saat hover */
+  color: #ffecec; /* Warna teks saat hover */
 }
 
 /* Dropdown styling */
@@ -296,6 +281,7 @@ a:hover {
 .navbar .dropdown-item:hover {
   background-color: #00bcd4; /* Warna hover dropdown */
   color: white; /* Warna teks dropdown saat hover */
+  text-decoration: none;
 }
 
 .table {
@@ -310,12 +296,16 @@ a:hover {
 
 .btn {
   border-radius: 5px;
+  width: fit-content;
+  padding: 8px 16px;
+  align-self: center;
+  margin-top: auto;
 }
 
 /* Styling untuk notification */
 .notification {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 10px; /* Padding lebih kecil */
   background-color: #f8f9fa; /* Warna latar belakang netral */
   border: 1px solid #ddd; /* Border sederhana */
@@ -327,24 +317,25 @@ a:hover {
   max-width: 800px; /* Batas maksimum lebar */
   margin: 0 auto; /* Agar berada di tengah */
   padding: 20px; /* Jarak dalam */
+  margin-bottom: 20px;
 }
 
 .notification .icon {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #f5f5f5;
   border-radius: 50%;
-  margin-right: 15px;
+  margin-right: 16px;
 }
 
 .notification .icon svg {
-  width: 20px;
-  height: 20px;
-  fill: #007bff;
+  width: 32px;
+  height: 32px;
+  fill: #ffc107;
 }
 
 .notification .content {
@@ -354,12 +345,13 @@ a:hover {
 .notification .content .title {
   font-weight: bold;
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .notification .content .message {
   font-size: 14px;
   color: #666;
+  margin-bottom: 4px;
 }
 
 .notification .arrow {
@@ -367,6 +359,16 @@ a:hover {
   font-size: 20px;
   color: #3ab2c2;
   margin-left: 10px; /* Jarak dengan teks */
+}
+
+.notification .detail-link {
+  font-size: 0.95em;
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.notification .detail-link:hover {
+  text-decoration: underline;
 }
 
 /* Calendar Styles */
@@ -442,6 +444,11 @@ a:hover {
 .fc-day-today {
     background-color: rgba(58, 178, 194, 0.05) !important;
 }
+.img {
+  max-height: 200px;
+  object-fit: contain;
+  padding: 16px; 
+}
 
 .fc-timegrid-col-frame {
     background: white;
@@ -460,8 +467,10 @@ a:hover {
     border: none;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-    margin: 0 auto;  /* Center the card */
+    margin: 0 auto;  
     width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .card.p-4 {
@@ -513,11 +522,26 @@ a:hover {
     background-color: #002a45;
     padding: 2rem 0;
     margin-bottom: 0;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Bayangan teks */
 }
 
 .header .lead {
     font-size: 1.1rem;
     opacity: 0.9;
+}
+.header-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem; 
+  font-weight: 600; 
+  margin-bottom: 0.5rem;
+}
+
+.header-subtitle {
+  font-family: 'Poppins', sans-serif; 
+  font-size: 1.2rem; 
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85); 
 }
 
 /* Link Styles */
@@ -536,7 +560,8 @@ a:hover {
 .shadow-sm {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
 }
-
+.rounded-circle { object-fit: cover; }
+#notif-badge .badge { font-size: 1em; }
 /* Admin Dashboard Styles */
 .sidebar {
     min-height: calc(100vh - 180px);

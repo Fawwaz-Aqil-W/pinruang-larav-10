@@ -14,15 +14,20 @@
     <!-- Header -->
     <header class="header text-white text-center py-3">
         <div class="container">
-            <h1 class="mb-0">Si Pinjam</h1>
-            <p class="lead">@yield('header-subtitle', 'Sistem Informasi Peminjaman')</p>
+            <h1 class="header-title mb-0">Si Pinjam</h1>
+            <p class="header-subtitle">@yield('header-subtitle', 'Sistem Informasi Peminjaman')</p>
         </div>
     </header>
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">Si Minjem</a>
+            <a class="navbar-brand" href="{{ route('home') }}">
+                <div class="logo-container">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo-navbar">
+                </div>
+            </a>
+            <span class="brand-text">Si Pinjam</span>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -46,9 +51,28 @@
                             <li><a class="dropdown-item" href="{{ route('pinjem.status') }}">Status Peminjaman</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" data-bs-toggle="dropdown">
+                            <img src="{{ Auth::user()->foto_url ?? 'https://png.pngtree.com/png-vector/20230531/ourlarge/pngtree-young-girl-standing-ready-coloring-page-vector-png-image_6787733.png' }}" alt="Foto Profil" class="rounded-circle" width="32" height="32">
+                            <span class="ms-2">{{ Auth::user()->name }}</span>
+                            @if($notifikasi->count() > 0)
+                                <span class="badge bg-danger ms-1">{{ $notifikasi->count() }}</span>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button class="dropdown-item" type="submit">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" 
-                           href="{{ route('profile') }}">Profile</a>
+                        <a class="nav-link {{ request()->routeIs('helpdesk') ? 'active' : '' }}" href="{{ route('helpdesk') }}">
+                            Helpdesk
+                        </a>
                     </li>
                 </ul>
             </div>

@@ -25,30 +25,35 @@ class RuanganController extends Controller
 
     public function getRoomSchedule($roomId)
     {
-    $cacheKey = "room_schedule_{$roomId}";
+        $userId = auth()->id();
 
-    $events = Cache::remember($cacheKey, now()->addMinutes(5), function() use ($roomId) {
-        return \App\Models\Pinjem::where('id_ruangan', $roomId)
-            ->whereIn('status', ['pending', 'disetujui', 'ditolak'])
+        $events = \App\Models\Pinjem::where('id_ruangan', $roomId)
+            ->where(function($q) use ($userId) {
+                $q->where('status', '!=', 'ditolak')
+                  ->orWhere(function($q2) use ($userId) {
+                      $q2->where('status', 'ditolak')
+                         ->where('user_id', $userId);
+                  });
+            })
             ->with(['user:id,name'])
             ->get()
             ->map(function($booking) {
                 $color = match($booking->status) {
                     'pending' => '#D2B48C',
-                    'disetujui' =>'rgb(46, 175, 184)',
+                    'disetujui' => 'rgb (46, 175, 184)',
                     'ditolak' => '#FF0000',
                     default => '#FFFFFF'
                 };
                 return [
-                    'title' => "{$booking->status} - {$booking->user->name} - {$booking->jurusan}",
+                    'title' => 'Peminjaman ' . $booking->ruangan->nama . ' - ' . $booking->jurusan,
                     'start' => $booking->mulai,
                     'end' => $booking->selesai,
                     'color' => $color,
-                    'status' => $booking->status
+                    'nama_peminjam' => $booking->user->name,
+                    'status' => $booking->status,
                 ];
-            })->values()->all(); // pastikan array, bukan collection
-    });
+            })->values()->all();
 
-    return response()->json($events); // pastikan response JSON
+        return response()->json($events);
     }
 }

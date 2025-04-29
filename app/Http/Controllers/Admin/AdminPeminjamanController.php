@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pinjem;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 
 class AdminPeminjamanController extends Controller
@@ -54,6 +55,12 @@ class AdminPeminjamanController extends Controller
                 'disetujui_oleh' => auth()->id()
             ]);
 
+            // Buat notifikasi
+            Notifikasi::create([
+                'user_id' => $peminjaman->user_id,
+                'pesan' => "Peminjaman ruangan {$peminjaman->ruangan->nama} telah disetujui.",
+            ]);
+
             return response()->json([
                 'message' => 'Peminjaman berhasil disetujui'
             ]);
@@ -81,6 +88,12 @@ class AdminPeminjamanController extends Controller
                 'ditolak_pada' => now(),
                 'ditolak_oleh' => auth()->id(),
                 'alasan_ditolak' => $request->input('reason')
+            ]);
+
+            // Buat notifikasi
+            Notifikasi::create([
+                'user_id' => $peminjaman->user_id,
+                'pesan' => "Peminjaman ruangan {$peminjaman->ruangan->nama} ditolak.",
             ]);
 
             return response()->json([

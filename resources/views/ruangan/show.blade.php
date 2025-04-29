@@ -25,14 +25,18 @@
 </head>
 <header class="header text-white text-center py-3">
     <div class="container">
-        <h1 class="mb-0">Si Pinjam</h1>
-        <p class="lead">@yield('header-subtitle', 'Sistem Informasi Peminjaman')</p>
+        <h1 class="header-title mb-0">Si Pinjam</h1>
+        <p class="header-subtitle">@yield('header-subtitle', 'Sistem Informasi Peminjaman')</p>
     </div>
 </header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">Si Minjem</a>
-
+        <a class="navbar-brand" href="{{ route('home') }}">
+            <div class="logo-container">
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo-navbar">
+            </div>
+        </a>
+        <span class="brand-text">Si Pinjam</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -59,6 +63,10 @@
                     <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" 
                        href="{{ route('profile') }}">Profile</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" 
+                       href="{{ route('profile') }}">Helpdesk</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -82,7 +90,7 @@
                             <p><strong>Fasilitas:</strong> {{ $ruangan->fasilitas ?? 'Proyektor, AC, Meja & Kursi' }}</p>
                             <p><strong>Deskripsi:</strong> {{ $ruangan->deskripsi ?? 'Ruang ini digunakan untuk kuliah dan seminar.' }}</p>
                             <a href="{{ route('pinjem.create', ['ruangan_id' => $ruangan->id]) }}" 
-                               class="btn btn-primary">
+                               class="btn signin-btn">
                                 Pinjam Ruangan
                             </a>
                         </div>

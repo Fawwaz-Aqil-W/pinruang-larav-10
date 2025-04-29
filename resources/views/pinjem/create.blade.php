@@ -16,7 +16,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm">
-                <div class="card-header">
+                <div class="card-header custom-header">
                     <h5 class="mb-0">Form Peminjaman Ruangan</h5>
                 </div>
                 <div class="card-body">
@@ -70,7 +70,7 @@
                             @enderror
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Ajukan Peminjaman</button>
+                        <button type="submit" class="btn signin-btn">Ajukan Peminjaman</button>
                     </form>
 
                     <div id="alert-message" class="alert mt-3 d-none"></div>

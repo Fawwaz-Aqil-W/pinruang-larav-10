@@ -20,16 +20,18 @@ class RegisterController extends Controller
             'nim' => ['required', 'string', 'unique:users'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'jurusan' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'jurusan' => 'required|string|max:255',
+            
         ]);
 
         $user = User::create([
             'nim' => $request->nim,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
             'jurusan' => $request->jurusan,
+            'password' => Hash::make($request->password),
+
         ]);
 
         auth()->login($user);
