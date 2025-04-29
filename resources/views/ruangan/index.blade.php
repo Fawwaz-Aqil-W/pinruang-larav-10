@@ -12,10 +12,11 @@
             @foreach($ruangan as $r)
             <div class="card shadow-sm" style="width: 280px;">
                 <a href="{{ route('ruangan.show', $r->kode_ruangan) }}">
-                    <img src="{{ $r->gambar_url ?? 'https://loremflickr.com/320/240/building' }}"
-                         class="card-img-top"
-                         alt="{{ $r->nama }}"
-                         style="border-radius: 6px;">
+                    <img src="{{ $r->gambar_url 
+    ?? ($r->gambar ? asset('storage/'.$r->gambar) : asset('images/foto2.png')) }}"
+     class="card-img-top"
+     alt="{{ $r->nama }}"
+     style="border-radius: 6px;">
                 </a>
                 <div class="card-body">
                     <h4 class="card-title">{{ $r->nama }}</h4>

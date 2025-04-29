@@ -16,6 +16,11 @@
                     </div>
 
                     <div class="mb-3">
+                        <label class="form-label">Kode Ruangan</label>
+                        <input type="text" class="form-control" name="kode_ruangan" id="kode_ruangan" required>
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label">Gedung</label>
                         <input type="text" class="form-control" name="gedung" id="gedung" required>
                     </div>
@@ -23,6 +28,15 @@
                     <div class="mb-3">
                         <label class="form-label">Kapasitas</label>
                         <input type="number" class="form-control" name="kapasitas" id="kapasitas" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Fasilitas</label>
+                        <input type="text" class="form-control" name="fasilitas" id="fasilitas">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea class="form-control" name="deskripsi" id="deskripsi" rows="3"></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -46,7 +60,7 @@
                         </div>
 
                         <div id="current_image" class="mt-2" style="display: none;">
-                            <img src="" alt="Preview" class="img-thumbnail" style="max-width: 200px">
+                            <img id="preview" src="" alt="Preview" class="img-thumbnail" style="max-width: 200px">
                         </div>
                     </div>
 
@@ -89,11 +103,24 @@ document.querySelectorAll('input[name="gambar_type"]').forEach(radio => {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('ruanganModal');
     const form = document.getElementById('formRuangan');
-    
+    const kodeRuangan = document.getElementById('kode_ruangan');
+
+    // Reset form saat modal dibuka untuk tambah data
+    modal.addEventListener('show.bs.modal', function (event) {
+        form.reset();
+        kodeRuangan.value = '';
+        // Reset preview gambar jika perlu
+        document.getElementById('preview').src = '';
+        document.getElementById('preview').style.display = 'none';
+    });
+
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
+        const submitBtn = form.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+
         const formData = new FormData(this);
         
         try {
@@ -110,12 +137,17 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 window.location.reload();
             } else {
-                alert(result.message || 'Terjadi kesalahan saat menyimpan data');
+                let msg = result.message || 'Terjadi kesalahan saat menyimpan data';
+                if (result.errors) {
+                    msg += '\n' + Object.values(result.errors).flat().join('\n');
+                }
+                alert(msg);
             }
         } catch (error) {
             console.error('Error:', error);
             alert('Terjadi kesalahan saat menyimpan data');
         }
+        submitBtn.disabled = false;
     });
 });
 </script>

@@ -21,6 +21,8 @@
                             <th>Gedung</th>
                             <th>Kapasitas</th>
                             <th>Gambar</th>
+                            <th>Fasilitas</th>
+                            <th>Deskripsi</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -31,11 +33,13 @@
                             <td>{{ $room->gedung }}</td>
                             <td>{{ $room->kapasitas }}</td>
                             <td>
-                                <img src="{{ asset('storage/'.$room->gambar) }}" 
-                                     alt="Gambar {{ $room->nama }}" 
-                                     width="100" 
-                                     class="img-thumbnail">
+                                <img src="{{ $room->gambar ? asset('storage/'.$room->gambar) : ($room->gambar_url ?? asset('images/foto2.png')) }}"
+     alt="Gambar {{ $room->nama }}"
+     width="100"
+     class="img-thumbnail">
                             </td>
+                            <td>{{ $room->fasilitas ?? '' }}</td>
+                            <td>{{ $room->deskripsi ?? '' }}</td>
                             <td>
                                 <button class="btn btn-warning btn-sm edit-room" 
                                         data-id="{{ $room->id }}">
@@ -99,7 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('nama').value = data.nama;
                 document.getElementById('gedung').value = data.gedung;
                 document.getElementById('kapasitas').value = data.kapasitas;
-                
+                document.getElementById('fasilitas').value = data.fasilitas ?? '';
+                document.getElementById('deskripsi').value = data.deskripsi ?? '';
+
                 // Show modal
                 modal.show();
             } catch (error) {
@@ -109,33 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Form submission
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        
-        try {
-            const response = await fetch(this.action, {
-                method: this.method,
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                }
-            });
-            
-            const result = await response.json();
-            
-            if (response.ok) {
-                window.location.reload();
-            } else {
-                alert(result.message || 'Terjadi kesalahan saat menyimpan data');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat menyimpan data');
-        }
-    });
 });
 </script>
 @endsection
