@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name', 'Si Minjem') }} - @yield('title')</title>
+    <title>
+    @hasSection('title')
+        Si Pinjam - @yield('title')
+    @else
+        Si Pinjam
+    @endif
+</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Custom CSS -->
@@ -86,7 +92,10 @@
         <div class="footer-bottom">
             Copyright &copy; {{ date('Y') }} - Developed by <a href="#">Informatika FT UNTIRTA</a>
         </div>
+        <p class="rahasia">F A W, Zahra,Nabila,Grace, Irfan,Adji,Riswan</p>
     </footer>
+    
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

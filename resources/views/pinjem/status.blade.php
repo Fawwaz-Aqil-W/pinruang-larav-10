@@ -60,6 +60,11 @@
                                         <button class="btn btn-secondary btn-sm" disabled>Edit</button>
                                         <button class="btn btn-danger btn-sm" disabled>Hapus</button>
                                     @endif
+                                    @if($pinjem->status == 'disetujui')
+    <a href="{{ route('pinjem.bukti', $pinjem->id) }}" target="_blank" class="btn btn-success btn-sm">
+        <i class="fas fa-file-pdf"></i> Bukti PDF
+    </a>
+@endif
                                 </td>
                             </tr>
                             @empty

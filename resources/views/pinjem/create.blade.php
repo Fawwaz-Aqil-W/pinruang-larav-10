@@ -45,9 +45,24 @@
                         <li><a class="dropdown-item" href="{{ route('pinjem.status') }}">Status Peminjaman</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">Profile</a>
-                </li>
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" data-bs-toggle="dropdown">
+                            <img src="{{ Auth::user()->foto_url ?? 'https://png.pngtree.com/png-vector/20230531/ourlarge/pngtree-young-girl-standing-ready-coloring-page-vector-png-image_6787733.png' }}" alt="Foto Profil" class="rounded-circle" width="32" height="32">
+                            <span class="ms-2">{{ Auth::user()->name }}</span>
+                            @if($notifikasi->count() > 0)
+                                <span class="badge bg-danger ms-1">{{ $notifikasi->count() }}</span>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button class="dropdown-item" type="submit">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Helpdesk</a>
                 </li>
@@ -55,7 +70,7 @@
         </div>
     </div>
 </nav>
-    <div class="container py-5" style="margin-top: 80px;">
+    <div class="container py-5" style="margin-top: 15px;">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow-sm">
@@ -168,6 +183,7 @@
     <div class="footer-bottom">
         Copyright &copy; {{ date('Y') }} - Developed by <a href="#">Informatika FT UNTIRTA</a>
     </div>
+    <p class="rahasia">F A W, Zahra,Nabila,Grace, Irfan,Adji,Riswan</p>
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>

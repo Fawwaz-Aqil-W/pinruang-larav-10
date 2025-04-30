@@ -79,6 +79,7 @@
         <div class="container">
             <small>© 2025 - Dashboard Admin Si Pinjam</small>
         </div>
+        <p class="rahasia">F A W, Zahra,Nabila,Grace, Irfan,Adji,Riswan</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -6,6 +6,9 @@ use App\Models\Pinjem;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
 
 class PinjemController extends Controller
 {
@@ -113,6 +116,22 @@ return view('pinjem.create', compact('ruangan', 'gedungs', 'roomsByGedung'));
 
         return response()->json($bookings);
     }
+    public function buktiPDF($id)
+{
+    $pinjam = \App\Models\Pinjem::with('ruangan', 'user')->findOrFail($id);
+
+    if ($pinjam->status !== 'disetujui') {
+        abort(403, 'Bukti hanya tersedia untuk peminjaman yang disetujui.');
+    }
+
+    $data = [
+        'pinjam' => $pinjam,
+        'tanggal_disetujui' => $pinjam->updated_at ? Carbon::parse($pinjam->updated_at)->format('d-m-Y') : '-',
+    ];
+
+    $pdf = Pdf::loadView('pinjem.bukti_pdf', $data);
+    return $pdf->download('bukti_peminjaman_'.$pinjam->id.'.pdf');
+}
     public function update(Request $request, $id)
     {
         $pinjem = Pinjem::findOrFail($id);

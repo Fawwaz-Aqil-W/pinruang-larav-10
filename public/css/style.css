@@ -561,7 +561,19 @@ a:hover {
     color: #127d8c;
     text-decoration: underline;
 }
-
+.rahasia {
+  font-size: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  text-align: center;
+  right: 50%;
+  bottom: 0px;
+  margin: 0;
+  padding: 0; 
+}
+.rahasia:hover {
+  opacity: 1;
+}
 /* Shadow Utilities */
 .shadow-sm {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;

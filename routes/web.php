@@ -68,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/pinjem/{id}', [PinjamController::class, 'update'])->name('pinjem.update');
     Route::get('/pinjem/schedule/{roomId}', [PinjemController::class, 'getRoomSchedule'])->name('pinjem.schedule');
     Route::delete('/notifikasi/{id}', [ProfileController::class, 'destroy'])->name('notifikasi.destroy');
+    Route::get('/pinjem/{id}/bukti', [\App\Http\Controllers\PinjemController::class, 'buktiPDF'])->name('pinjem.bukti');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

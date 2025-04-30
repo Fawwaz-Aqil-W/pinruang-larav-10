@@ -24,6 +24,7 @@
         <div class="footer-bottom">
             Copyright &copy; {{ date('Y') }} - Developed by <a href="#">Informatika FT UNTIRTA</a>
         </div>
+        <p class="rahasia">F A W, Zahra,Nabila,Grace, Irfan,Adji,Riswan</p>
     </footer>
 </body>
 </html>
