@@ -56,6 +56,12 @@
                                 <i class="fas fa-file-alt"></i> Lihat Laporan
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-decoration-none {{ Request::is('admin/helpdesk') ? 'active' : '' }}" 
+                               href="{{ route('admin.helpdesk') }}">
+                                <i class="fas fa-question-circle"></i> Helpdesk
+                            </a>
+                        </li>
                         <li class="nav-item mt-3">
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf

@@ -84,6 +84,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/laporan/export-excel', [AdminLaporanController::class, 'exportExcel'])->name('laporan.excel');
     Route::get('/laporan/export-pdf', [AdminLaporanController::class, 'exportPDF'])->name('laporan.pdf');
     Route::post('/peminjaman/{id}/cancel', [AdminPeminjamanController::class, 'cancel'])->name('peminjaman.cancel');
-    
+    Route::get('/helpdesk', function() {return view('admin.helpdesk');})->name('helpdesk');
 });
 
