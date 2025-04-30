@@ -50,7 +50,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('/profile/update-foto', [ProfileController::class, 'updateFoto'])->name('profile.updateFoto');
-    Route::get('/helpdesk', function () {return view('helpdesk');})->name('helpdesk');
+    Route::get('/helpdesk', function () { return view('helpdesk.helpdesk'); })->name('helpdesk');
+    Route::get('/helpdesk/tutor1', function () { return view('helpdesk.tutor1'); })->name('helpdesk.tutor1');
+    Route::get('/helpdesk/tutor2', function () { return view('helpdesk.tutor2'); })->name('helpdesk.tutor2');
+    Route::get('/helpdesk/tutor3', function () { return view('helpdesk.tutor3'); })->name('helpdesk.tutor3');
     // Ruangan routes
     Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan.index');
     Route::get('/ruangan/check', [RuanganController::class, 'check'])->name('ruangan.check');
