@@ -3,13 +3,7 @@
 @section('title', 'Register')
 
 @section('content')
-<!-- Header -->
-<header class="header text-white text-center py-3">
-    <div class="container">
-        <h1 class="mb-0">Si Pinjam</h1>
-        <p class="lead">Sistem Informasi Peminjaman Fasilitas Kampus</p>
-    </div>
-</header>
+
 
 <!-- Register Section -->
 <section class="register-section py-5">

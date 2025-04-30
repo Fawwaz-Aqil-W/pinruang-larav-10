@@ -21,7 +21,8 @@
     <table class="header-table">
         <tr>
             <td class="center" style="width: 15%;">
-                <img src="{{ public_path('logo-univ.png') }}" class="logo">
+                <img style="margin-top: 10px"  src="{{ public_path('images/logokel3-OOP-kelasA-FANGZIR.png') }}" class="logo">
+                <p style="font-size: 8px; margin: 0;">F A N G Z I R</p>
             </td>
             <td class="center" style="width: 70%;">
                 <span class="bold" style="font-size:16px;">Formulir Peminjaman<br>Ruangan FT UNTIRTA</span>
@@ -31,7 +32,7 @@
             </td>
         </tr>
     </table>
-    <table class="main-table" style="margin-top:10px;">
+    <table class="main-table" style="margin-top:30px;">
         <tr>
             <td style="width:33%;">
                 <span class="bold">Kepada :</span><br>

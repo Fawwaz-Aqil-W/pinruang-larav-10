@@ -12,8 +12,15 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <div class="overlay"></div>
+    <!-- Header -->
+<header class="header text-white text-center py-3">
+    <div class="container">
+        <h1 class="mb-0">Si Pinjam</h1>
+        <p class="lead">Sistem Informasi Peminjaman Fasilitas Kampus</p>
+    </div>
+</header>
     
     @yield('content')
     

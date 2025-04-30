@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="login-container">
+<div class="login-container container">
     <div class="login-form-box">
         <img src="{{ asset('images/logo.png') }}" alt="Login Logo" class="login-logo">
         

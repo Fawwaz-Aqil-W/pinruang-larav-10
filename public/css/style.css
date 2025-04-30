@@ -460,12 +460,13 @@ a.signin-btn {
 }
 
 /* Register & Login Form Styles */
-.register-section, .login-section {
-    min-height: calc(100vh - 200px);
-    display: flex;
+.register-section .container,
+.login-section .container  {
+    /* min-height: calc(100vh - 200px); */
+    /* display: flex; */
     align-items: center;
     justify-content: center;
-    padding: 2rem 0;
+    padding: 20px;
     flex: 1;
 }
 
