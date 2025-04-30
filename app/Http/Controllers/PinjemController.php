@@ -12,7 +12,9 @@ class PinjemController extends Controller
     public function create()
     {
         $ruangan = Ruangan::all();
-        return view('pinjem.create', compact('ruangan'));
+$gedungs = Ruangan::distinct()->pluck('gedung');
+$roomsByGedung = Ruangan::all()->groupBy('gedung')->map->values();
+return view('pinjem.create', compact('ruangan', 'gedungs', 'roomsByGedung'));
     }
 
     public function store(Request $request)
@@ -96,7 +98,7 @@ class PinjemController extends Controller
                 $color = match($booking->status) {
                     'pending' => '#D2B48C', // brown
                     'disetujui' => '#0000FF', // blue
-                    'ditolak' => '#FF0000', // red
+                    'ditolak'    => '#FF0000', // red
                     default => '#FFFFFF' // white
                 };
 
@@ -110,5 +112,48 @@ class PinjemController extends Controller
             });
 
         return response()->json($bookings);
+    }
+    public function update(Request $request, $id)
+    {
+        $pinjem = Pinjem::findOrFail($id);
+
+        if ($pinjem->user_id !== auth()->id()) {
+            return back()->with('error', 'Anda tidak memiliki akses untuk mengedit peminjaman ini');
+        }
+
+        if ($pinjem->status !== 'pending') {
+            return back()->with('error', 'Hanya peminjaman dengan status pending yang dapat diedit');
+        }
+
+        $validated = $request->validate([
+            'mulai' => 'required|date',
+            'selesai' => 'required|date|after:mulai',
+            'alasan' => 'required|string'
+        ]);
+
+        // Cek bentrok jadwal (hanya yang disetujui, exclude diri sendiri)
+        $approvedBooking = Pinjem::where('id_ruangan', $pinjem->id_ruangan)
+            ->where('status', 'disetujui')
+            ->where('id', '!=', $pinjem->id)
+            ->where(function($query) use ($validated) {
+                $query->whereBetween('mulai', [$validated['mulai'], $validated['selesai']])
+                    ->orWhereBetween('selesai', [$validated['mulai'], $validated['selesai']])
+                    ->orWhere(function($q) use ($validated) {
+                        $q->where('mulai', '<=', $validated['mulai'])
+                          ->where('selesai', '>=', $validated['selesai']);
+                    });
+            })->exists();
+
+        if ($approvedBooking) {
+            return back()->with('error', 'Ruangan sudah dibooking dan disetujui untuk waktu tersebut');
+        }
+
+        $pinjem->update([
+            'mulai' => $validated['mulai'],
+            'selesai' => $validated['selesai'],
+            'alasan' => $validated['alasan'],
+        ]);
+
+        return back()->with('success', 'Peminjaman berhasil diupdate');
     }
 }

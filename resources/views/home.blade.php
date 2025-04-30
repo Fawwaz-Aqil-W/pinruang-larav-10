@@ -53,7 +53,7 @@
 </section>
 @endsection
 
-@section('scripts')
+@push('scripts')
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script>
@@ -149,4 +149,4 @@
         });
     });
 </script>
-@endsection
+@endpush

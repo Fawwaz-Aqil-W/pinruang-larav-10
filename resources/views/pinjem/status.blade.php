@@ -110,6 +110,8 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -122,8 +124,33 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('edit_selesai').value = pinjam.selesai.replace(' ', 'T');
             document.getElementById('edit_alasan').value = pinjam.alasan;
             document.getElementById('form-edit-pinjam').action = `/pinjem/${pinjam.id}`;
-            new bootstrap.Modal(document.getElementById('editPinjamModal')).show();
+            const modalEl = document.getElementById('editPinjamModal');
+            const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+            modal.show();
         });
+    });
+
+    // Submit form edit via AJAX (opsional, agar reload otomatis)
+    document.getElementById('form-edit-pinjam').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = this;
+        const data = new FormData(form);
+        const url = form.action;
+        const token = document.querySelector('meta[name="csrf-token"]').content;
+
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': token,
+                'Accept': 'application/json'
+            },
+            body: new URLSearchParams(data)
+        });
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('Gagal update peminjaman');
+        }
     });
 });
 </script>
