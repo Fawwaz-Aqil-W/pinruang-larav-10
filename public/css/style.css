@@ -11,6 +11,10 @@ html, body {
   background-color: #f2f2f2;
   display: flex;
   flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 
 .content {
@@ -186,8 +190,8 @@ a.signin-btn {
   color: white;
   padding: 20px;
   text-align: center;
+  margin-top: auto;
 }
-
 
 .footer-bottom {
   margin-top: 10px;
@@ -269,6 +273,7 @@ a.signin-btn {
 .navbar .nav-link:hover {
   background-color: #07a2b7; /* Warna latar saat hover */
   color: #ecf7ff; /* Warna teks saat hover */
+  border-radius: 8px;
 }
 
 /* Dropdown styling */
@@ -461,6 +466,7 @@ a.signin-btn {
     align-items: center;
     justify-content: center;
     padding: 2rem 0;
+    flex: 1;
 }
 
 .card {
