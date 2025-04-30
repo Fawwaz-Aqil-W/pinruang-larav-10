@@ -26,14 +26,6 @@ class AdminLaporanController extends Controller
         return view('admin.laporan.index', compact('peminjaman', 'ruangan'));
     }
 
-    public function exportExcel(Request $request)
-    {
-        return Excel::download(
-            new PeminjamanExport($request->status, $request->tanggal, $request->ruangan),
-            'laporan-peminjaman.xlsx'
-        );
-    }
-
     public function exportPDF(Request $request)
     {
         $query = Pinjem::with(['user', 'ruangan']);
@@ -43,11 +35,30 @@ class AdminLaporanController extends Controller
 
         $peminjaman = $query->get();
 
-        $pdf = PDF::loadView('admin.laporan.pdf', [
+        $tanggalFile = $request->tanggal
+            ? \Carbon\Carbon::parse($request->tanggal)->translatedFormat('d-F-Y')
+            : now()->translatedFormat('d-F-Y');
+        $tanggalFile = str_replace(' ', '-', $tanggalFile);
+
+        $pdf = \PDF::loadView('admin.laporan.pdf', [
             'peminjaman' => $peminjaman,
             'tanggal' => $request->tanggal,
             'penanggung_jawab' => auth()->user()->name
         ]);
-        return $pdf->download('laporan-peminjaman.pdf');
+
+        return $pdf->download('laporan-peminjaman-' . $tanggalFile . '.pdf');
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $tanggalFile = $request->tanggal
+            ? \Carbon\Carbon::parse($request->tanggal)->translatedFormat('d-F-Y')
+            : now()->translatedFormat('d-F-Y');
+        $tanggalFile = str_replace(' ', '-', $tanggalFile);
+
+        return \Excel::download(
+            new \App\Exports\PeminjamanExport($request->status, $request->tanggal, $request->ruangan),
+            'laporan-peminjaman-' . $tanggalFile . '.xlsx'
+        );
     }
 }

@@ -76,66 +76,57 @@ class AdminRuanganController extends Controller
 
     public function edit(Ruangan $ruangan)
     {
-        return response()->json($ruangan);
+        return view('admin.ruangan.edit', compact('ruangan'));
     }
 
     public function update(Request $request, Ruangan $ruangan)
     {
-        try {
-            $validator = Validator::make($request->all(), [
-                'nama' => 'required|string|max:255',
-                'gedung' => 'required|string|max:255',
-                'kapasitas' => 'required|integer|min:1',
-                'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-                'gambar_url' => 'nullable|url',
-                'fasilitas' => 'nullable|string|max:255',
-                'deskripsi' => 'nullable|string',
-                'kode_ruangan' => 'required|string|max:255',
-            ]);
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255',
+            'gedung' => 'required|string|max:255',
+            'kapasitas' => 'required|integer|min:1',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'gambar_url' => 'nullable|url',
+            'fasilitas' => 'nullable|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'kode_ruangan' => 'required|string|max:255',
+        ]);
 
-            if ($validator->fails()) {
-                return response()->json([
-                    'message' => 'Validasi gagal',
-                    'errors' => $validator->errors()
-                ], 422);
-            }
-
-            // Manual check kode_ruangan, ignore current id
-            if (Ruangan::where('kode_ruangan', $request->kode_ruangan)
-                ->where('id', '!=', $ruangan->id)
-                ->exists()) {
-                return response()->json([
-                    'message' => 'Kode ruangan sudah digunakan, silakan pilih yang lain.'
-                ], 422);
-            }
-
-            $data = $validator->validated();
-
-            if ($request->hasFile('gambar')) {
-                if ($ruangan->gambar) {
-                    Storage::disk('public')->delete($ruangan->gambar);
-                }
-                $data['gambar'] = $request->file('gambar')->store('ruangan', 'public');
-                $data['gambar_url'] = null;
-            } elseif ($request->filled('gambar_url')) {
-                if ($ruangan->gambar) {
-                    Storage::disk('public')->delete($ruangan->gambar);
-                }
-                $data['gambar'] = null;
-            }
-
-            $ruangan->update($data);
-
-            return response()->json([
-                'message' => 'Ruangan berhasil diperbarui'
-            ], 200);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Terjadi kesalahan saat memperbarui data',
-                'error' => $e->getMessage()
-            ], 500);
+        if ($validator->fails()) {
+            return redirect()
+                ->route('admin.ruangan.edit', $ruangan->id)
+                ->withErrors($validator)
+                ->withInput();
         }
+
+        // Manual check kode_ruangan, ignore current id
+        if (Ruangan::where('kode_ruangan', $request->kode_ruangan)
+            ->where('id', '!=', $ruangan->id)
+            ->exists()) {
+            return redirect()
+                ->route('admin.ruangan.edit', $ruangan->id)
+                ->with('error', 'Kode ruangan sudah digunakan, silakan pilih yang lain.')
+                ->withInput();
+        }
+
+        $data = $validator->validated();
+
+        if ($request->hasFile('gambar')) {
+            if ($ruangan->gambar) {
+                Storage::disk('public')->delete($ruangan->gambar);
+            }
+            $data['gambar'] = $request->file('gambar')->store('ruangan', 'public');
+            $data['gambar_url'] = null;
+        } elseif ($request->filled('gambar_url')) {
+            if ($ruangan->gambar) {
+                Storage::disk('public')->delete($ruangan->gambar);
+            }
+            $data['gambar'] = null;
+        }
+
+        $ruangan->update($data);
+
+        return redirect()->route('admin.ruangan.index')->with('success', 'Ruangan berhasil diperbarui');
     }
 
     public function destroy(Ruangan $ruangan)

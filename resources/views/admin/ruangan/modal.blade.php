@@ -59,9 +59,7 @@
                                    placeholder="https://example.com/image.jpg">
                         </div>
 
-                        <div id="current_image" class="mt-2" style="display: none;">
-                            <img id="preview" src="" alt="Preview" class="img-thumbnail" style="max-width: 200px">
-                        </div>
+                        <img id="current_image" src="" alt="Gambar Ruangan" style="max-width:120px;display:none;">
                     </div>
 
                     <div class="modal-footer">

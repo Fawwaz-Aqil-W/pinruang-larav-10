@@ -41,10 +41,9 @@
                             <td>{{ $room->fasilitas ?? '' }}</td>
                             <td>{{ $room->deskripsi ?? '' }}</td>
                             <td>
-                                <button class="btn btn-warning btn-sm edit-room" 
-                                        data-id="{{ $room->id }}">
+                                <a href="{{ route('admin.ruangan.edit', $room->id) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i> Edit
-                                </button>
+                                </a>
                                 <form action="{{ route('admin.ruangan.destroy', $room->id) }}" 
                                       method="POST" 
                                       class="d-inline">
@@ -93,20 +92,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 const response = await fetch(`/admin/ruangan/${id}/edit`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
-                
+
                 form.reset();
                 form.action = `/admin/ruangan/${id}`;
                 form.querySelector('input[name="_method"]').value = 'PUT';
                 document.querySelector('.modal-title').textContent = 'Edit Ruangan';
-                
-                // Fill form data
-                document.getElementById('nama').value = data.nama;
-                document.getElementById('gedung').value = data.gedung;
-                document.getElementById('kapasitas').value = data.kapasitas;
+
+                document.getElementById('nama').value = data.nama ?? '';
+                document.getElementById('kode_ruangan').value = data.kode_ruangan ?? '';
+                document.getElementById('gedung').value = data.gedung ?? '';
+                document.getElementById('kapasitas').value = data.kapasitas ?? '';
                 document.getElementById('fasilitas').value = data.fasilitas ?? '';
                 document.getElementById('deskripsi').value = data.deskripsi ?? '';
 
-                // Show modal
+                const img = document.getElementById('current_image');
+                if (data.gambar) {
+                    img.src = '/storage/' + data.gambar;
+                    img.style.display = 'block';
+                } else if (data.gambar_url) {
+                    img.src = data.gambar_url;
+                    img.style.display = 'block';
+                } else {
+                    img.style.display = 'none';
+                }
+
                 modal.show();
             } catch (error) {
                 console.error('Error:', error);
