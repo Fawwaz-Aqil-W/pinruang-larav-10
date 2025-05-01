@@ -65,7 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pinjem', [PinjemController::class, 'store'])->name('pinjem.store');
     Route::get('/pinjem/status-pinjem', [PinjemController::class, 'status'])->name('pinjem.status');
     Route::delete('/pinjem/{id}', [PinjemController::class, 'destroy'])->name('pinjem.destroy');
-    Route::put('/pinjem/{id}', [PinjamController::class, 'update'])->name('pinjem.update');
+    Route::put('/pinjem/{id}', [PinjemController::class, 'update'])->name('pinjem.update');
     Route::get('/pinjem/schedule/{roomId}', [PinjemController::class, 'getRoomSchedule'])->name('pinjem.schedule');
     Route::delete('/notifikasi/{id}', [ProfileController::class, 'destroy'])->name('notifikasi.destroy');
     Route::get('/pinjem/{id}/bukti', [\App\Http\Controllers\PinjemController::class, 'buktiPDF'])->name('pinjem.bukti');

@@ -12,6 +12,7 @@
 </head>
 <body>
     <h2 style="text-align:center;">Laporan Peminjaman Ruangan</h2>
+    <p style="margin-top: 20px">periode {{$tanggal ?? 'Semua Periode'}} </p>
     <div class="logo-wrapper">
         <img src="{{ public_path('images/logo.png') }}" class="logo" alt="Logo">
     </div>
