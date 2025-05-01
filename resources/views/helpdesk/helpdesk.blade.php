@@ -11,7 +11,6 @@
       <!-- Panduan: Melihat Ketersediaan -->
       <div class="col-md-4">
         <div class="card shadow-sm h-100 text-center">
-          <img src="cek_kalender.png" class="card-img-top img-fluid" alt="Cek Ketersediaan">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">Cek Ketersediaan Ruangan</h5>
             <p class="card-text flex-grow-1">Lihat kalender untuk mengetahui ruangan kosong sebelum meminjam.</p>
@@ -23,7 +22,6 @@
       <!-- Panduan: Mengajukan Peminjaman -->
       <div class="col-md-4">
         <div class="card shadow-sm h-100 text-center">
-          <img src="pinjam_ruangan.png" class="card-img-top img-fluid" alt="Pinjam Ruangan">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">Ajukan Peminjaman</h5>
             <p class="card-text flex-grow-1">Cara mengisi form untuk meminjam ruangan dengan benar.</p>
@@ -35,7 +33,6 @@
       <!-- Panduan: Mengedit Peminjaman -->
       <div class="col-md-4">
         <div class="card shadow-sm h-100 text-center">
-          <img src="status.png" class="card-img-top img-fluid" alt="Status Peminjaman">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">Edit Peminjaman</h5>
             <p class="card-text flex-grow-1">Edit peminjamanmu sebelum di approve</p>

@@ -24,6 +24,7 @@
             <li>Periksa notifikasi atau pemberitahuan penting.</li>
             <li>Akses menu utama ke fitur lain melalui sidebar.</li>
         </ul>
+        <img src="{{ asset('images/dashboard.png') }}" class="step-img">
     </section>
 
     <!-- Laporan Section -->
@@ -35,6 +36,7 @@
             <li>Ekspor laporan ke format PDF atau Excel jika diperlukan.</li>
             <li>Gunakan laporan untuk keperluan administrasi atau audit.</li>
         </ul>
+        <img src="{{ asset('images/laporan1.png') }}" class="step-img">
     </section>
 
     <!-- Ruangan Section -->
@@ -43,9 +45,12 @@
         <p>Menu <b>Kelola Ruangan</b> digunakan untuk menambah, mengedit, atau menghapus data ruangan yang tersedia untuk dipinjam.</p>
         <ul>
             <li>Tambah ruangan baru dengan mengisi form detail ruangan.</li>
+            <img src="{{ asset('images/tambah1.png') }}" class="step-img">
             <li>Edit data ruangan jika ada perubahan fasilitas, kapasitas, atau gambar.</li>
+            <img src="{{ asset('images/editruangan1.png') }}" class="step-img">
             <li>Hapus ruangan yang sudah tidak tersedia.</li>
             <li>Pastikan data ruangan selalu up-to-date agar peminjam tidak salah memilih.</li>
+            <img src="{{ asset('images/apus1.png') }}" class="step-img">
         </ul>
     </section>
 
@@ -59,6 +64,7 @@
             <li>Isi alasan penolakan jika permohonan tidak dapat disetujui.</li>
             <li>Pantau status peminjaman dan lakukan update jika ada perubahan jadwal.</li>
         </ul>
+        <img src="{{ asset('images/pinjam.png') }}" class="step-img">
     </section>
 </div>
 

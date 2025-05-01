@@ -17,42 +17,38 @@
   <!-- Step 1 -->
   <div class="step-box">
     <h5 class="fw-semibold">1. Cari ruangan yang ingin Anda pinjam</h5>
-    <img src="step1.png" alt="Langkah 1" class="step-img img-fluid">
-    <p>Masuk ke halaman daftar ruangan, lalu gunakan filter pencarian atau scroll daftar untuk menemukan ruangan yang tersedia.</p>
+    <p>Masuk ke halaman daftar ruangan, lalu scroll daftar untuk menemukan ruangan yang tersedia, pilih salah satu ruangan.</p>
+    <img src="{{ asset('images/ruangan1.png') }}" class="step-img"> 
+    <img src="{{ asset('images/ruangan2.png') }}" class="step-img">
   </div>
 
   <!-- Step 2 -->
   <div class="step-box">
     <h5 class="fw-semibold">2. Klik tombol <em>Pinjam</em> pada ruangan tersebut</h5>
-    <img src="step2.png" alt="Langkah 2" class="step-img img-fluid">
     <p>Setelah menemukan ruangan yang sesuai, klik tombol <strong>Pinjam</strong> untuk melanjutkan proses peminjaman.</p>
+    <img src="{{ asset('images/ruangan3.png') }}" class="step-img">
+    <p>Atau, bisa juga dengan klik navbar <strong>Peminjamaman</strong> lalu ke <strong>Pinjam Ruangan</strong> untuk langsung ke formulir peminjaman</p>
+    <img src="{{ asset('images/ruangan4.png') }}" class="step-img">
   </div>
 
   <!-- Step 3 -->
   <div class="step-box">
     <h5 class="fw-semibold">3. Isi formulir peminjaman</h5>
-    <img src="step3.png" alt="Langkah 3" class="step-img img-fluid">
     <p>Lengkapi formulir peminjaman dengan informasi berikut:</p>
     <ul>
       <li>Ruangan yang ingin dipinjam</li>
       <li>Tanggal peminjaman</li>
       <li>Jam mulai dan jam selesai</li>
       <li>Alasan peminjaman</li>
+      <li>Pastikan semua data sudah benar, lalu klik tombol <strong>Ajukan Peminjaman</strong></li>
     </ul>
+    <img src="{{ asset('images/ruangan5.png') }}" class="step-img">
   </div>
 
   <!-- Step 4 -->
   <div class="step-box">
-    <h5 class="fw-semibold">4. Klik tombol <em>Ajukan Peminjaman</em></h5>
-    <img src="step4.png" alt="Langkah 4" class="step-img img-fluid">
-    <p>Pastikan semua data sudah benar, lalu klik tombol <strong>Ajukan Peminjaman</strong>.</p>
-  </div>
-
-  <!-- Step 5 -->
-  <div class="step-box">
     <h5 class="fw-semibold">5. Permintaan Anda akan berstatus <em>Pending</em></h5>
-    <img src="step5.png" alt="Langkah 5" class="step-img img-fluid">
-    <p>Permintaan Anda akan diproses dan menunggu persetujuan dari admin. Anda bisa memantau statusnya di halaman Status Peminjaman.</p>
+    <p>Permintaan Anda akan diproses dan menunggu persetujuan dari admin. Anda bisa memantau statusnya di halaman <strong>Status Peminjaman</strong>.</p>
   </div>
 </div>
 @endsection
