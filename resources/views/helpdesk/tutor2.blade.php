@@ -49,6 +49,8 @@
   <div class="step-box">
     <h5 class="fw-semibold">5. Permintaan Anda akan berstatus <em>Pending</em></h5>
     <p>Permintaan Anda akan diproses dan menunggu persetujuan dari admin. Anda bisa memantau statusnya di halaman <strong>Status Peminjaman</strong>.</p>
+    <p>Notifikasi terkait status peminajaman juga akan muncul di profil</p>
+    <img src="{{ asset('images/notif.png') }}" class="step-img">
   </div>
 </div>
 @endsection
