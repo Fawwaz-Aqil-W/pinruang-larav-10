@@ -63,9 +63,11 @@
                             </li>
                         </ul>
                     </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Helpdesk</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('helpdesk') ? 'active' : '' }}" href="{{ route('helpdesk') }}">
+                            Helpdesk
+                        </a>
+                    </li>
             </ul>
         </div>
     </div>
