@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name', 'Si Minjem') }} <title>Detail Ruangan</title>
+    <title>{{ config('Si Minjem') }} Detail Ruangan - {{ $ruangan->nama }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -59,9 +59,23 @@
                         <li><a class="dropdown-item" href="{{ route('pinjem.status') }}">Status Peminjaman</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" 
-                       href="{{ route('profile') }}">Profile</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" data-bs-toggle="dropdown">
+                        <img src="{{ Auth::user()->foto_url ?? 'https://png.pngtree.com/png-vector/20230531/ourlarge/pngtree-young-girl-standing-ready-coloring-page-vector-png-image_6787733.png' }}" alt="Foto Profil" class="rounded-circle" width="32" height="32">
+                        <span class="ms-2">{{ Auth::user()->name }}</span>
+                        @if($notifikasi->count() > 0)
+                            <span class="badge bg-danger ms-1">{{ $notifikasi->count() }}</span>
+                        @endif
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="dropdown-item" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" 
@@ -80,7 +94,7 @@
                     <h3>{{ $ruangan->nama }}</h3>
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="{{ $ruangan->gambar_url ?? 'https://loremflickr.com/320/240/building' }}" 
+                            <img src="{{ $ruangan->gambar ? asset('storage/' . $ruangan->gambar) : 'https://loremflickr.com/320/240/building' }}" 
                                  alt="{{ $ruangan->nama }}" 
                                  class="img-fluid mb-3 rounded">
                         </div>

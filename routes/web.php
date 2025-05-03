@@ -34,16 +34,27 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [RegisterController::class, 'store']);
 
     // Password Reset Routes
-    Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])
-        ->name('password.request');
-    Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])
-        ->name('password.email');
-    Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])
-        ->name('password.reset');
-    Route::post('reset-password', [ResetPasswordController::class, 'reset'])
-        ->name('password.update');
+    // Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    // Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    //Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    // Route::post('reset-password', [ResetPasswordController::class, 'reset'])  ->name('password.update');
+    Route::get('/password/reset', function () {return view('auth.passwords.email');})->name('password.request');
 });
-
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::resource('ruangan', AdminRuanganController::class);
+    Route::resource('peminjaman', AdminPeminjamanController::class);
+    Route::get('laporan', [AdminLaporanController::class, 'index'])->name('laporan.index');
+    Route::post('laporan/export', [AdminLaporanController::class, 'export'])->name('laporan.export');
+    Route::get('/peminjaman', [AdminPeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::post('/peminjaman/{id}/approve', [AdminPeminjamanController::class, 'approve'])->name('peminjaman.approve');
+    Route::post('/peminjaman/{id}/reject', [AdminPeminjamanController::class, 'reject'])->name('peminjaman.reject');
+    Route::get('/laporan', [AdminLaporanController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/export-excel', [AdminLaporanController::class, 'exportExcel'])->name('laporan.excel');
+    Route::get('/laporan/export-pdf', [AdminLaporanController::class, 'exportPDF'])->name('laporan.pdf');
+    Route::post('/peminjaman/{id}/cancel', [AdminPeminjamanController::class, 'cancel'])->name('peminjaman.cancel');
+    Route::get('/helpdesk', function() {return view('admin.helpdesk');})->name('helpdesk');
+});
 Route::middleware(['auth'])->group(function () {
     // Basic routes
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
@@ -71,19 +82,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pinjem/{id}/bukti', [\App\Http\Controllers\PinjemController::class, 'buktiPDF'])->name('pinjem.bukti');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    Route::resource('ruangan', AdminRuanganController::class);
-    Route::resource('peminjaman', AdminPeminjamanController::class);
-    Route::get('laporan', [AdminLaporanController::class, 'index'])->name('laporan.index');
-    Route::post('laporan/export', [AdminLaporanController::class, 'export'])->name('laporan.export');
-    Route::get('/peminjaman', [AdminPeminjamanController::class, 'index'])->name('peminjaman.index');
-    Route::post('/peminjaman/{id}/approve', [AdminPeminjamanController::class, 'approve'])->name('peminjaman.approve');
-    Route::post('/peminjaman/{id}/reject', [AdminPeminjamanController::class, 'reject'])->name('peminjaman.reject');
-    Route::get('/laporan', [AdminLaporanController::class, 'index'])->name('laporan.index');
-    Route::get('/laporan/export-excel', [AdminLaporanController::class, 'exportExcel'])->name('laporan.excel');
-    Route::get('/laporan/export-pdf', [AdminLaporanController::class, 'exportPDF'])->name('laporan.pdf');
-    Route::post('/peminjaman/{id}/cancel', [AdminPeminjamanController::class, 'cancel'])->name('peminjaman.cancel');
-    Route::get('/helpdesk', function() {return view('admin.helpdesk');})->name('helpdesk');
-});
+
 

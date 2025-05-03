@@ -51,7 +51,7 @@ class AdminPeminjamanController extends Controller
 
             $peminjaman->update([
                 'status' => 'disetujui',
-                'disetujui_pada' => now(),
+                'disetujui_pada' => now('Asia/Jakarta'),
                 'disetujui_oleh' => auth()->id()
             ]);
 
@@ -85,7 +85,7 @@ class AdminPeminjamanController extends Controller
 
             $peminjaman->update([
                 'status' => 'ditolak',
-                'ditolak_pada' => now(),
+                'ditolak_pada' => now('Asia/Jakarta'),
                 'ditolak_oleh' => auth()->id(),
                 'alasan_ditolak' => $request->input('reason')
             ]);
